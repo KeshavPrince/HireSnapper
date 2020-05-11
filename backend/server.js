@@ -19,6 +19,7 @@ connection.once('open', () => {
 });
 
 app.use(cors());
+
 app.use(express.json());
 
 app.listen(port, () => {
