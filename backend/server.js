@@ -14,7 +14,6 @@ const connection = mongoose.connection;
 connection.once('open', () => {
     console.log('Database Attached..');
 }).then(() => {
-    
     console.log('Database Attached..');
 }).catch(() => {
     console.log('Database error');
@@ -24,8 +23,8 @@ connection.once('open', () => {
 app.use(cors());
 
 app.use(express.json());
-require('./routes/authenticate.js');
+require('./routes/authenticate.js')(app);
 
 app.listen(port, () => {
-    console.log('Wolfs Listening to You..');
+    console.log('Wolf Listening to You..');
 });

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const Schema = mongoose.Schema;
 
@@ -7,10 +8,12 @@ const photographerSchema = new Schema({
         type : String,
         unique : true,
         trim : true,
+        default : '',
         required : true
     },
     name : {
-        type : String,  
+        type : String,
+        default : '',  
         required : true,
         trim : true,
     },
@@ -24,11 +27,12 @@ const photographerSchema = new Schema({
     },
     profilePic : {
         type : String,
+        default : '',
         required : false,
     },
     bio : {
         type : String,
-        maxlength : 50,
+        default : '',
         trim : true,
     },
     clientExperience : {
@@ -47,6 +51,7 @@ const photographerSchema = new Schema({
     },
     rating : {
         type : Number,
+        default : -1,
         required : false,
         trim : true,
     },
@@ -54,14 +59,12 @@ const photographerSchema = new Schema({
         type : String,
         required : true,
         trim : false,
-        minlength : 4,
-        maxlength : 30,
     }
 }, {
     timestamp : true,
 });
 
-photographerSchema.methods.generateHash = function(password) {
+photographerSchema.methods.genrateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 

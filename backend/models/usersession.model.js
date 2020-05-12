@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const userSessionSehema = mongoose.Schema({
     userSessionId : {
-        type : Number
+        type : String
     },
 } , {
     timestamps : true,
