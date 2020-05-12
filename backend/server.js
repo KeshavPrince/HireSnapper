@@ -20,6 +20,7 @@ connection.once('open', () => {
     console.log('Database error');
 });
 
+
 app.use(cors());
 
 app.use(express.json());
