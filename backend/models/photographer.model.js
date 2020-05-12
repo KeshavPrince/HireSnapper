@@ -3,14 +3,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const photographerSchema = new Schema({
-    username : {
-        type : String,
-        unique : true,
-        minlength : 3,
-        trim : true,
-        lowercase : true,
-        required : true
-    },
     email : {
         type : String,
         unique : true,

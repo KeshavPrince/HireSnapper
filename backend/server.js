@@ -24,6 +24,7 @@ connection.once('open', () => {
 app.use(cors());
 
 app.use(express.json());
+require('./routes/authenticate.js');
 
 app.listen(port, () => {
     console.log('Wolfs Listening to You..');
