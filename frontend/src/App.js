@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { Component } from "react";
+import Signin from "./signin";
+import Signup from "./signup";
 
-function App() {
-  return (
-    <div>
-      <h1>Hello Thala</h1>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Signup />
+      </div>
+    );
+  }
 }
 
 export default App;

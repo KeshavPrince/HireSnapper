@@ -1,0 +1,13 @@
+.bg {
+  min-height: calc(100vh);
+  background: url("./img/authenticate_cover.jpg") center/cover no-repeat fixed;
+  display: flex;
+  /* filter: blur(3px); */
+  /* -webkit-filter: blur(3px); */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  align-items: center;
+  justify-content: center;
+}
