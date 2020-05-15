@@ -27,3 +27,4 @@ frontend/npm-debug.log*
 frontend/yarn-debug.log*
 frontend/yarn-error.log*
 backend/node_modules
+frontend/src/css_cpy.css

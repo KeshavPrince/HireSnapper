@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
-import Avatar from "@material-ui/core/Avatar";
+import "../App.css";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -9,6 +8,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import {Link} from "react-router-dom"
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -60,7 +61,7 @@ export default function Signin() {
                 autoComplete="current-password"
               />
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
+                control={<Checkbox value="remember" color="primary"/>}
                 label="Remember me"
               />
               <Button
@@ -72,6 +73,15 @@ export default function Signin() {
               >
                 Sign In
               </Button>
+              <Grid container >
+              <Grid item>
+                <Link to="/authenticate/signup">
+                  <div className = "blue-text underline">
+                    {"Don't have an account? Sign Up"}
+                  </div>
+                </Link>
+              </Grid>
+            </Grid>
             </form>
           </div>
         </Container>
