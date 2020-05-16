@@ -1,13 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
+import NavBar from "./navbar";
 
 class home extends Component {
-    render() {
-        return (
-            <div className = "blue-text">
-                Home
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        {/* <div className = "header">  */}
+          <NavBar />
+        {/* </div> */}
+      </div>
+    );
+  }
 }
 
 export default home;
