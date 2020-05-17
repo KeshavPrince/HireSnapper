@@ -6,9 +6,9 @@ module.exports = (app) => {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) return true;
     return false;
   }
-  app.post("/authenticate/signup", (req, res, next) => {
+  app.post("/api/authenticate/signup", (req, res, next) => {
     if (req.body.name == null || req.body.name == "") {
-      res.send({
+      res.json({
         success: !true,
         message: "name is required",
       });
@@ -67,7 +67,7 @@ module.exports = (app) => {
     }
   });
 
-  app.get("/authenticate/signin", (req, res) => {
+  app.get("/api/authenticate/signin", (req, res) => {
     if (req.body.email == null || req.body.email == "") {
       res.send({
         success: !true,
@@ -145,7 +145,7 @@ module.exports = (app) => {
     }
   });
 
-  app.delete("/authenticate/signout", (req, res) => {
+  app.delete("/api/authenticate/signout", (req, res) => {
     userSession.findByIdAndDelete(
       {
         _id: req.body._id,
@@ -156,7 +156,7 @@ module.exports = (app) => {
             success: false,
             message: "Server error..",
           });
-        } else if (result == null) {
+        } else if(result == null) {
           res.send({
             success: false,
             message: "Not Signed In",
@@ -165,6 +165,35 @@ module.exports = (app) => {
           res.send({
             success: true,
             message: "SignOut..",
+          });
+        }
+      }
+    );
+  });
+
+  app.get("/api/authenticate/verify", (req, res) => {
+    console.log('kp');
+    const {query} = req;
+    const {token} = query;
+    userSession.find(
+      {
+        _id: token,
+      },
+      (err, sessions) => {
+        if (err) {
+          res.send({
+            success: false,
+            message: "Server error..",
+          });
+        } else if (sessions.length == 0) {
+          res.send({
+            success: false,
+            message: "Not Signed In",
+          });
+        } else {
+          res.send({
+            success: true,
+            message: "Verified SignIn..",
           });
         }
       }
