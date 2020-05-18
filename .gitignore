@@ -12,6 +12,7 @@ frontend/.pnp.js
 
 # testing
 frontend/coverage
+#doit
 
 # production
 frontend/build
