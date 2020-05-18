@@ -1,53 +1,45 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import NavBar from "./navbar";
 import { getFromStorage } from "../utils/storage";
-import { verifyToken } from "../utils/verify_token";
+import { verifyToken } from "../utils/apicalls";
 
-class home extends Component {
+export default function Home() {
   
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      token: "",
-      isSignedIn: false,
-      isError: false,
-    };
-  }
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  componentDidMount() {
+  const init = async () => {
     let value = getFromStorage("HireSnapper_token");
     if (value) {
-      if(verifyToken(value)) {
-        console.log('ds');
-        this.setState({
-          isLoading : false,
-          token : value,
-          isSignedIn : true,
-        });
+      let res = false;
+      res = await verifyToken(value).catch(err => res = false);  
+      if(res) {
+          setIsLoading(false);
+          setIsSignedIn(true);
       }
       else {
-        console.log('Wolf is here1');   
+        setIsLoading(false);
       }
     }
     else {
+      setIsLoading(false);
       console.log('No Such Token Exist');
     }
-  }
+   }
 
-  render() {
-    if(this.state.isLoading) {
-      return <h1>Thala</h1>;
-    } else {
-      return (
-        <div>
-          <div className="header">
-            <NavBar type={this.state.isSignedIn} />
-          </div>
-        </div>
-      );
-    }
+  useEffect(() => {
+     init();
+  }, []);
+  if(isLoading)
+  {
+    return (<div className="header"></div>);
   }
-}
-
-export default home;
+  else
+  {
+   return ( <div>
+    <div className="header">
+      <NavBar type={isSignedIn} />
+    </div>
+  </div>);
+  }
+  }

@@ -55,10 +55,40 @@ module.exports = (app) => {
                   message: "Server error..",
                 });
               } else {
-                res.send({
-                  success: true,
-                  message: "Account Created..",
-                });
+                userSession.find(
+                  {
+                    userSessionId: userCreated._id,
+                  },
+                  (err, result) => {
+                    if (err) {
+                      res.send({
+                        success: false,
+                        message: "Server error..",
+                      });
+                    } else if (result.length > 0) {
+                      res.send({
+                        success: false,
+                        message: "Already Loged in",
+                      });
+                    } else {
+                      var newUserSession = new userSession();
+                      newUserSession.userSessionId = userCreated._id;
+                      newUserSession.save((errr, docs) => {
+                        if (errr) {
+                          res.send({
+                            success: false,
+                            message: "Server error..",
+                          });
+                        }
+                        res.send({
+                          success: true,
+                          message: "Account Created..",
+                          token: docs._id,
+                        });
+                      });
+                    }
+                  }
+                );
               }
             });
           }
@@ -67,7 +97,7 @@ module.exports = (app) => {
     }
   });
 
-  app.get("/api/authenticate/signin", (req, res) => {
+  app.post("/api/authenticate/signin", (req, res) => {
     if (req.body.email == null || req.body.email == "") {
       res.send({
         success: !true,
@@ -117,8 +147,9 @@ module.exports = (app) => {
                   });
                 } else if (result.length > 0) {
                   res.send({
-                    success: false,
+                    success: true,
                     message: "Already Loged in",
+                    token: result[0]._id,
                   });
                 } else {
                   var newUserSession = new userSession();
@@ -156,7 +187,7 @@ module.exports = (app) => {
             success: false,
             message: "Server error..",
           });
-        } else if(result == null) {
+        } else if (result == null) {
           res.send({
             success: false,
             message: "Not Signed In",
@@ -172,9 +203,9 @@ module.exports = (app) => {
   });
 
   app.get("/api/authenticate/verify", (req, res) => {
-    console.log('kp');
-    const {query} = req;
-    const {token} = query;
+    console.log("kp");
+    const { query } = req;
+    const { token } = query;
     userSession.find(
       {
         _id: token,
