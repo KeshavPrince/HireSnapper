@@ -35,7 +35,7 @@ export default function Signin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('wolfies');
+    console.log('wolfie');
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
